@@ -1,3 +1,3 @@
 <template>
-	<div>signup</div>
+	<div>add task</div>
 </template>

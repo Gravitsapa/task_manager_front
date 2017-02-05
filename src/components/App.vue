@@ -21,3 +21,15 @@ export default {
 		}
 }
 </script>
+
+
+<style>
+
+	* {
+		box-sizing: border-box;
+	}
+	
+	body {
+		background: url(../assets/bg.png) repeat-x;
+	}
+</style>
