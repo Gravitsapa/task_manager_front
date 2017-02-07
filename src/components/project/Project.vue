@@ -1,6 +1,6 @@
 <template>
 <div>
-	<project-head></project-head>
+	<project-head :name="project.name" :id="project.id" @delProject="deleteProject"></project-head>
 	<add-task></add-task>
 	<task></task>
 </div>
@@ -14,9 +14,19 @@ import Task from './Task.vue'
 
 export default {
   components: {
-			ProjectHead,
-			AddTask,
-			Task
-		}
+		ProjectHead,
+		AddTask,
+		Task
+	},
+	props: ['proj'],
+	data: function () {
+	  return { project: this.proj }
+	},
+	methods: {
+		deleteProject(id) {
+      this.$emit('delProject', id)
+    }
+	}
 }
+
 </script>
