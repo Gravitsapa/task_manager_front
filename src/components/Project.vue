@@ -11,7 +11,7 @@
   <div class="project_add-task">
     add task
   </div>
-  <task></task>
+  <task v-for="task in tasks" :task="task"></task>
 </div>
 </template>
 
@@ -27,7 +27,8 @@ export default {
     return {
       updateMode: false,
       name: this.proj.name,
-      id: this.proj.id
+      id: this.proj.id,
+      tasks: this.proj.tasks
     }
   },
   methods: {
