@@ -33,10 +33,9 @@ export default {
       //console.log(this.projects);
       let removedId = this.projects.splice(id, 1)[0].id;
       //console.log(this.projects);
-      console.log(removedId)
 
 /*
-      this.$http.delete('http://localhost:3000/projects/'+removedId).then((response) => {
+      this.$http.delete('http://192.168.100.100:3000/projects/'+removedId).then((response) => {
       }, (response) => {
         console.log('err');
       });
@@ -47,7 +46,7 @@ export default {
         name: title
       }
 
-      this.$http.post('http://localhost:3000/projects', options).then((response) => {
+      this.$http.post('http://192.168.100.100:3000/projects', options).then((response) => {
         this.projects.push(response.body);
         this.showButton = true;
       }, (response) => {
@@ -57,7 +56,7 @@ export default {
     }
   },
   created: function() {
-    this.$http.get('http://localhost:3000/projects').then((response) => {
+    this.$http.get('http://192.168.100.100:3000/projects').then((response) => {
       this.projects = (response.body);
     }, (response) => {
       console.log('err');
