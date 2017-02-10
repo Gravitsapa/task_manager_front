@@ -14,7 +14,7 @@
       <button type="submit">Add task</button>
     </form>
   </div>
-  <task v-for="task in tasks" :task="task" :projectId="id" @removeTask="removeTask(task)"></task>
+  <task v-for="task in tasks" :key="task.id" :task="task" :projectId="id" @removeTask="removeTask(task)"></task>
 </div>
 </template>
 
@@ -64,12 +64,12 @@ export default {
     },
     removeTask(task) {
       this.tasks.splice(this.tasks.indexOf(task), 1);
-/*      
+
       this.$http.delete('http://192.168.100.100:3000/projects/'+this.id+'/tasks/'+task.id).then((response) => {
       }, (response) => {
         console.log('err');
       });
-*/
+
     }
   }
 }

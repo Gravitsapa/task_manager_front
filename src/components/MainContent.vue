@@ -3,7 +3,8 @@
     <project
       v-for="(project, index) in projects" 
       :proj="project" 
-      @remove="deleteProject(index)">
+      @remove="deleteProject(index)"
+      :key="project.id">
     </project>
     <button v-if="this.showButton" v-on:click="showProjectTitle()">Add project</button>
     <input type="text" v-else @keyup.enter="addProject($event.target.value)">
@@ -30,16 +31,13 @@ export default {
     },
     deleteProject(id) {
 
-      //console.log(this.projects);
       let removedId = this.projects.splice(id, 1)[0].id;
-      //console.log(this.projects);
 
-/*
       this.$http.delete('http://192.168.100.100:3000/projects/'+removedId).then((response) => {
       }, (response) => {
         console.log('err');
       });
-*/
+
     },
     addProject(title) {
       var options = {
