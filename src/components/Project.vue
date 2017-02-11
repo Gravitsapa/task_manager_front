@@ -51,6 +51,7 @@ export default {
     addTask() {
       var options = {
         name: this.newTask,
+        status: false,
         project_id: this.id
       }
 

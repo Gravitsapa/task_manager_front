@@ -37,7 +37,6 @@ export default {
       }, (response) => {
         console.log('err');
       });
-
     },
     addProject(title) {
       var options = {
