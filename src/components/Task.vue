@@ -6,6 +6,7 @@
     <div v-else>
       <input type="checkbox" v-model="taskStatus" @click="editTask">
       <span :class="{ completed: taskStatus }">{{ this.taskName }}</span>
+      <button class="handle">m</button>
       <button @click='editMode = true'>e</button>
       <button @click.prevent="$emit('removeTask', this.task)">d</button>
     </div>
@@ -26,11 +27,11 @@
     },
     methods: {
       editTask() {
-        var options = {
+        let options = {
           name: this.taskName,
           status: this.taskStatus,
           id: this.taskId
-        }
+        };
         this.$http.patch('http://192.168.100.100:3000/projects/'+this.idProject+'/tasks/'+this.taskId, options).then((response) => {
 
         }, (response) => {

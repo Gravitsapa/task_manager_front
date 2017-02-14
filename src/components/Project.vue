@@ -14,16 +14,26 @@
       <button type="submit">Add task</button>
     </form>
   </div>
-  <task v-for="task in tasks" :key="task.id" :task="task" :projectId="id" @removeTask="removeTask(task)"></task>
+  <draggable :list="tasks" :options="{handle: '.handle'}" @update="moveTask()">
+    <task v-for="task in tasks"
+          :key="task.id" 
+          :task="task" 
+          :projectId="id"
+          @removeTask="removeTask(task)">
+    </task>
+  </draggable>
 </div>
 </template>
 
 <script>
 import Task from './Task.vue'
+import draggable from 'vuedraggable'
 
 export default {
+
   components: {
-    Task
+    Task,
+    draggable
   },
   props: ['proj'],
   data: function () {
@@ -35,11 +45,23 @@ export default {
       newTask: ""
     }
   },
+  computed: {
+    tasksPriority() {
+      let tasks = [];
+      this.tasks.forEach(function (item, i, arr) {
+        tasks.push(item.id);
+      });
+      return {
+        tasks: tasks,
+        project_id: this.id
+      }
+    }
+  },
   methods: {
     renameProject() {
-      var options = {
+      let options = {
         name: this.name
-      }
+      };
       this.$http.patch('http://192.168.100.100:3000/projects/'+this.id, options).then((response) => {
 
       }, (response) => {
@@ -49,11 +71,12 @@ export default {
       this.updateMode = false;
     },
     addTask() {
-      var options = {
+      let options = {
         name: this.newTask,
         status: false,
+        priority: 0,
         project_id: this.id
-      }
+      };
 
       this.$http.post('http://192.168.100.100:3000/projects/'+this.id+'/tasks', options).then((response) => {
         this.tasks.push(response.body);
@@ -71,6 +94,15 @@ export default {
         console.log('err');
       });
 
+    },
+    moveTask() {
+
+      this.$http.post('http://192.168.100.100:3000/projects/'+this.id+'/tasks/sort', this.tasksPriority).then((response) => {
+
+      }, (response) => {
+        console.log('err');
+
+      });
     }
   }
 }
