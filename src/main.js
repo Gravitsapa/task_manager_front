@@ -1,7 +1,6 @@
 import Vue          from 'vue'
 import VueRouter    from 'vue-router'
 import VueResource  from 'vue-resource'
-import Sortable     from 'vue-sortable'
 
 import App          from './components/App.vue'
 import MainContent  from './components/MainContent.vue'
@@ -10,7 +9,6 @@ import Signup       from './components/Signup.vue'
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
-Vue.use(Sortable)
 
 export var router = new VueRouter({
   routes: [

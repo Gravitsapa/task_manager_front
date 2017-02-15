@@ -17,8 +17,8 @@ import SiteHead from './SiteHead.vue'
 export default {
   name: 'app',
   components: {
-			SiteHead,
-		}
+    SiteHead,
+  }
 }
 </script>
 
