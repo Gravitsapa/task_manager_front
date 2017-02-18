@@ -52,7 +52,7 @@ export default {
       });
     }
   },
-  created: function() {
+  mounted: function() {
     this.$http.get('http://192.168.100.100:3000/projects').then((response) => {
       this.projects = (response.body);
     }, (response) => {
