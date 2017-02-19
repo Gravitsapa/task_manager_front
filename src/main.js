@@ -49,7 +49,6 @@ export let auth = {
       if(redirect) {
         router.replace({ path: redirect })
       }
-
     }, (err) => {
       console.log(err);
       //context.error = err
