@@ -72,7 +72,7 @@
     cursor: move;
   }
 
-  .hisdden {
+  .hidden {
     display: none;
   }
 

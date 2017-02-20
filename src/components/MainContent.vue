@@ -13,6 +13,8 @@
 
 <script>
 import Project from './Project.vue'
+import {router} from '../main'
+import {auth} from '../main'
 
 export default {
   //name: "MainContent",
@@ -39,9 +41,10 @@ export default {
       });
     },
     addProject(title) {
-      var options = {
-        name: title
-      }
+      let options = {
+        name: title,
+        user_id: auth.user.user_id
+      };
 
       this.$http.post('http://192.168.100.100:3000/projects', options).then((response) => {
         this.projects.push(response.body);
@@ -51,6 +54,10 @@ export default {
 
       });
     }
+  },
+  created() {
+    if(!auth.user.authenticated)
+      router.replace('/login')
   },
   mounted: function() {
     this.$http.get('http://192.168.100.100:3000/projects').then((response) => {

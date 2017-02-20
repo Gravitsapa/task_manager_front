@@ -1,11 +1,13 @@
 <template>
 <div class="project">
-  <div class="project_head">
+  <div class="project__head">
     <input type="text" v-if="updateMode" v-model="name" @keyup.enter="renameProject">
     <template v-else>
-      <div>{{ this.name }}</div>
-      <a href="#" @click.prevent="$emit('remove')">delete</a>
-      <a href="#" @click.prevent="updateMode = true">update</a>
+      <span class="project__title">{{ this.name }}</span>
+      <span class="actions">
+        <a href="#" class="actions__item actions__remove-project" @click.prevent="$emit('remove')"></a>
+        <a href="#" class="actions__item actions__edit-project" @click.prevent="updateMode = true"></a>
+      </span>
     </template>
   </div>
   <div class="project_add-task">
@@ -109,9 +111,54 @@ export default {
 </script>
 
 <style>
-  .project_head {
+  .project {
+    margin-bottom: 40px;
+  }
+
+  .project__head {
     height: 52px;
     border: 1px solid #315589;
-    background: url(../assets/project-head-bg.png);
+    background: url(../assets/calendar_ico.png) no-repeat 15px 50%, #4972af url(../assets/project-head-bg.png);
+    position: relative;
+  }
+
+  .project__title {
+    line-height: 52px;
+    margin-left: 50px;
+    color: #fff;
+    font-size: 1.1rem;
+    text-shadow: #333 0 1px 0;
+  }
+
+  .actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+    height: 100%;
+    align-items: center;
+  }
+
+  .project__head:hover .actions {
+    display: inline-flex;
+  }
+
+  .actions__item {
+    border-left: 1px solid #5284bf;
+    display: inline-block;
+    height: 16px;
+    padding: 0 20px;
+  }
+
+  .actions__item:first-child {
+    border-left: none;
+  }
+
+  .actions__remove-project {
+    background: url("../assets/trash_ico.png") no-repeat 50% 50%;
+  }
+
+  .actions__edit-project {
+    background: url("../assets/pencil_ico.png") no-repeat 50% 50%;
   }
 </style>
