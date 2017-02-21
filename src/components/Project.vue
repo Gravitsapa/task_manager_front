@@ -10,10 +10,11 @@
       </span>
     </template>
   </div>
-  <div class="project_add-task">
-    <form @submit.prevent="addTask()">
-      <input type="text" v-model="newTask">
-      <button type="submit">Add task</button>
+  <div class="project__add-task">
+    <form @submit.prevent="addTask()" class="add-task">
+      <div class="add-task__item"><input type="text" v-model="newTask" class="add-task__input"></div>
+      <div class="add-task__item"><button type="submit" class="add-task__button">Add task</button></div>
+
     </form>
   </div>
   <draggable :list="tasks" :options="{handle: '.handle'}" @update="moveTask()">
@@ -160,5 +161,56 @@ export default {
 
   .actions__edit-project {
     background: url("../assets/pencil_ico.png") no-repeat 50% 50%;
+  }
+
+  .project__add-task {
+    height: 50px;
+    background: url(../assets/add_task_ico.png) no-repeat 15px 50%, -webkit-linear-gradient(top, #e1e1e1 0%, #ccc 100%);
+    background: url(../assets/add_task_ico.png) no-repeat 15px 50%, -moz-linear-gradient(top, #e1e1e1 0%, #ccc 100%);
+    background: url(../assets/add_task_ico.png) no-repeat 15px 50%, -ms-linear-gradient(top, #e1e1e1 0%, #ccc 100%);
+    background: url(../assets/add_task_ico.png) no-repeat 15px 50%, linear-gradient(top, #e1e1e1 0%, #ccc 100%);
+    border: 1px solid #aaa;
+    border-top: none;
+  }
+
+  .add-task {
+    margin: 0 15px 0 50px;
+    display: table;
+    height: 100%;
+
+  }
+
+  .add-task__item {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+  }
+
+  .add-task__button {
+    background: -webkit-linear-gradient(top, #94cbae 0%, #508767 100%);
+    background:    -moz-linear-gradient(top, #94cbae 0%, #508767 100%);
+    background:     -ms-linear-gradient(top, #94cbae 0%, #508767 100%);
+    background:         linear-gradient(top, #94cbae 0%, #508767 100%);
+    border: 1px solid #447557;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    cursor: pointer;
+    color: #fff;
+    font-size: .8rem;
+    font-weight: 600;
+    height: 28px;
+    padding: 0 20px;
+    text-shadow: #333 0 1px 0;
+    white-space: nowrap;
+  }
+
+  .add-task__input {
+    border: none;
+    border-top: 1px solid #707070;
+    border-left: 1px solid #cfcfcf;
+    height: 28px;
+    padding-left: 15px;
+    width: 100%;
+    box-shadow: inset  0  2px 1px -1px #cfcfcf;
   }
 </style>
