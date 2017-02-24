@@ -1,7 +1,13 @@
 <template>
 <div class="project">
   <div class="project__head">
-    <input type="text" v-if="updateMode" v-model="name" @keyup.enter="renameProject">
+    <div v-if="updateMode" class="project-input-container">
+      <input type="text"
+             v-model="name"
+             @keyup.enter="renameProject"
+             class="project__input"
+             v-on-clickaway="renameProject">
+    </div>
     <template v-else>
       <span class="project__title">{{ this.name }}</span>
       <span class="actions">
@@ -12,32 +18,41 @@
   </div>
   <div class="project__add-task">
     <form @submit.prevent="addTask()" class="add-task">
-      <div class="add-task__item"><input type="text" v-model="newTask" class="add-task__input"></div>
+      <div class="add-task__item">
+        <input type="text"
+               v-model="newTask"
+               class="add-task__input"
+               placeholder="Start typing here to create a task...">
+      </div>
       <div class="add-task__item"><button type="submit" class="add-task__button">Add task</button></div>
 
     </form>
   </div>
-  <draggable :list="tasks" :options="{handle: '.handle'}" @update="moveTask()">
-    <task v-for="task in tasks"
-          :key="task.id" 
-          :task="task" 
-          :projectId="id"
-          @removeTask="removeTask(task)">
-    </task>
-  </draggable>
+  <div class="project__tasks">
+    <draggable :list="tasks" :options="{handle: '.handle'}" @update="moveTask()" class="tasks">
+      <task v-for="task in tasks"
+            :key="task.id"
+            :task="task"
+            :projectId="id"
+            @removeTask="removeTask(task)">
+      </task>
+    </draggable>
+  </div>
+
 </div>
 </template>
 
 <script>
 import Task from './Task.vue'
 import draggable from 'vuedraggable'
+import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
-
   components: {
     Task,
     draggable
   },
+  mixins: [ clickaway ],
   props: ['proj'],
   data: function () {
     return {
@@ -123,6 +138,26 @@ export default {
     position: relative;
   }
 
+  .project-input-container{
+    margin-left: 50px;
+    margin-right: 15px;
+  }
+  .project__input {
+    height: 30px;
+    margin-top: 10px;
+    border: solid 2px #315589;
+    transition: border 0.3s;
+    border-radius: 4px;
+    background: none;
+    color: #fff;
+    font-size: 1.1rem;
+    padding-left: 15px;
+    width: 100%;
+  }
+  .project__input:focus, .project__input.focus {
+    border: solid 2px #3754c0;
+  }
+
   .project__title {
     line-height: 52px;
     margin-left: 50px;
@@ -138,6 +173,7 @@ export default {
     display: none;
     height: 100%;
     align-items: center;
+    margin-right: 5px;
   }
 
   .project__head:hover .actions {
@@ -212,5 +248,22 @@ export default {
     padding-left: 15px;
     width: 100%;
     box-shadow: inset  0  2px 1px -1px #cfcfcf;
+  }
+
+  .project__tasks {
+    border: 1px solid #aaa;
+    border-bottom: 2px solid #aaa;
+    border-top: none;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .tasks {
+    background-color: #fff;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
   }
 </style>
