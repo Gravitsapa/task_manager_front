@@ -6,7 +6,8 @@
              v-model="name"
              @keyup.enter="renameProject"
              class="project__input"
-             v-on-clickaway="renameProject">
+             v-on-clickaway="renameProject"
+             autofocus>
     </div>
     <template v-else>
       <span class="project__title">{{ this.name }}</span>

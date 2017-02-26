@@ -4,8 +4,8 @@
 		<nav class="container">
 	    <ul>
         <template v-if="!user.authenticated">
-          <li><router-link to="login">Login</router-link></li>
-          <li><router-link to="signup">Signup</router-link></li>
+          <li><router-link to="login">Log in</router-link></li>
+          <li><router-link to="signup">Register</router-link></li>
         </template>
 				<li v-else @click="logout()"><router-link to="login">Logout</router-link></li>
 	    </ul>

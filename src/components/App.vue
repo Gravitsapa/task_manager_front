@@ -4,8 +4,8 @@
     <main class="container">
     	<router-view></router-view>
     </main>
-    <footer class="container">
-    	Ruby Garage
+    <footer class="container footer">
+    	&copy; Andrey Liapin
     </footer>
   </div>
 </template>
@@ -38,5 +38,23 @@ export default {
   .container {
     width: 65%;
     margin: 0 auto;
+  }
+
+  #app {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1;
+  }
+
+  .footer {
+    color: #eee;
+    max-height: 50px;
+    line-height: 50px;
+    padding-top: 20px;
+    text-align: center;
   }
 </style>

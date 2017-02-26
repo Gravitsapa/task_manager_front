@@ -1,7 +1,5 @@
 <template>
   <div class="task">
-
-
       <div class="task__checkbox">
         <input type="checkbox" v-model="taskStatus" @click="editTask">
       </div>
@@ -12,7 +10,8 @@
                    class="task__input"
                    v-model="taskName"
                    @keyup.enter.prevent="editTask()"
-                   v-on-clickaway="editTask">
+                   v-on-clickaway="editTask"
+                   autofocus>
           </div>
         </template>
         <template v-else>
@@ -103,12 +102,16 @@
 
   .task {
     border-bottom: 1px solid #e7ebea;
-    line-height: 50px;
     display: table-row;
+  }
+
+  .task:hover {
+    background-color: #fcfed5;
   }
 
   .task:last-child {
     border: none;
+
   }
 
   .task-input-container {
@@ -124,6 +127,8 @@
     width: 45px;
     padding: 0 0 0 15px;
     display: table-cell;
+    line-height: 50px;
+    border-bottom-left-radius: 12px;
   }
 
   .task__checkbox:after {
@@ -137,6 +142,7 @@
 
   .task__info {
     display: table-cell;
+    vertical-align: middle;
   }
 
   .task__name {
@@ -153,6 +159,7 @@
     font-size: .75rem;
     background-color: red;
     padding: 2px 5px;
+    margin-right: 15px;
   }
 
   .task__actions {
@@ -160,6 +167,8 @@
     display: table-cell;
     width: 112px;
     padding-left: 5px;
+    vertical-align: middle;
+    border-bottom-right-radius: 12px;
   }
 
   .task:hover .actions-item {
