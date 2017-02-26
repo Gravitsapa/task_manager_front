@@ -66,7 +66,7 @@
           deadline: this.taskDeadline,
         };
         console.log(this.taskDeadline);//todo delete
-        this.$https.patch(API_URL+'projects/'+this.idProject+'/tasks/'+this.taskId, options).then((response) => {
+        this.$http.patch(API_URL+'projects/'+this.idProject+'/tasks/'+this.taskId, options).then((response) => {
 
         }, (response) => {
         console.log('err');

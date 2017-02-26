@@ -82,7 +82,7 @@ export default {
       let options = {
         name: this.name
       };
-      this.$https.patch(API_URL+'projects/'+this.id, options).then((response) => {
+      this.$http.patch(API_URL+'projects/'+this.id, options).then((response) => {
 
       }, (response) => {
         console.log('err');
@@ -98,7 +98,7 @@ export default {
         project_id: this.id
       };
 
-      this.$https.post(API_URL+'projects/'+this.id+'/tasks', options).then((response) => {
+      this.$http.post(API_URL+'projects/'+this.id+'/tasks', options).then((response) => {
         this.tasks.push(response.body);
       }, (response) => {
         console.log('err');
@@ -109,7 +109,7 @@ export default {
     removeTask(task) {
       this.tasks.splice(this.tasks.indexOf(task), 1);
 
-      this.$https.delete(API_URL+'projects/'+this.id+'/tasks/'+task.id).then((response) => {
+      this.$http.delete(API_URL+'projects/'+this.id+'/tasks/'+task.id).then((response) => {
       }, (response) => {
         console.log('err');
       });
@@ -117,7 +117,7 @@ export default {
     },
     moveTask() {
 
-      this.$https.post(API_URL+'projects/'+this.id+'/tasks/sort', this.tasksPriority).then((response) => {
+      this.$http.post(API_URL+'projects/'+this.id+'/tasks/sort', this.tasksPriority).then((response) => {
 
       }, (response) => {
         console.log('err');

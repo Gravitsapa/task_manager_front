@@ -33,7 +33,7 @@ export let auth = {
   },
 
   login(context, creds) {
-    context.$https.post(LOGIN_URL, creds).then((data) => {
+    context.$http.post(LOGIN_URL, creds).then((data) => {
       localStorage.setItem('id_token', data.body.jwt);
       this.user.authenticated = true;
       Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
@@ -46,7 +46,7 @@ export let auth = {
   },
 
   signup(context, creds, redirect) {
-    context.$https.post(SIGNUP_URL, creds).then((data) => {
+    context.$http.post(SIGNUP_URL, creds).then((data) => {
       localStorage.setItem('id_token', data.body.jwt);
       this.user.authenticated = true;
       Vue.http.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('id_token');
