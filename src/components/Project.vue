@@ -47,6 +47,7 @@
 import Task from './Task.vue'
 import draggable from 'vuedraggable'
 import { mixin as clickaway } from 'vue-clickaway';
+import {API_URL} from '../main'
 
 export default {
   components: {
@@ -81,7 +82,7 @@ export default {
       let options = {
         name: this.name
       };
-      this.$http.patch('http://192.168.100.100:3000/projects/'+this.id, options).then((response) => {
+      this.$http.patch(API_URL+'projects/'+this.id, options).then((response) => {
 
       }, (response) => {
         console.log('err');
@@ -97,7 +98,7 @@ export default {
         project_id: this.id
       };
 
-      this.$http.post('http://192.168.100.100:3000/projects/'+this.id+'/tasks', options).then((response) => {
+      this.$http.post(API_URL+'projects/'+this.id+'/tasks', options).then((response) => {
         this.tasks.push(response.body);
       }, (response) => {
         console.log('err');
@@ -108,7 +109,7 @@ export default {
     removeTask(task) {
       this.tasks.splice(this.tasks.indexOf(task), 1);
 
-      this.$http.delete('http://192.168.100.100:3000/projects/'+this.id+'/tasks/'+task.id).then((response) => {
+      this.$http.delete(API_URL+'projects/'+this.id+'/tasks/'+task.id).then((response) => {
       }, (response) => {
         console.log('err');
       });
@@ -116,7 +117,7 @@ export default {
     },
     moveTask() {
 
-      this.$http.post('http://192.168.100.100:3000/projects/'+this.id+'/tasks/sort', this.tasksPriority).then((response) => {
+      this.$http.post(API_URL+'projects/'+this.id+'/tasks/sort', this.tasksPriority).then((response) => {
 
       }, (response) => {
         console.log('err');

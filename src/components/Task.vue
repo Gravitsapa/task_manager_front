@@ -41,6 +41,7 @@
 <script>
   import Datepicker from 'vuejs-datepicker'
   import { mixin as clickaway } from 'vue-clickaway';
+  import {API_URL} from '../main';
 
   export default {
     components: {
@@ -65,7 +66,7 @@
           deadline: this.taskDeadline,
         };
         console.log(this.taskDeadline);//todo delete
-        this.$http.patch('http://192.168.100.100:3000/projects/'+this.idProject+'/tasks/'+this.taskId, options).then((response) => {
+        this.$http.patch(API_URL+'projects/'+this.idProject+'/tasks/'+this.taskId, options).then((response) => {
 
         }, (response) => {
         console.log('err');

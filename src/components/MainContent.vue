@@ -15,7 +15,8 @@
              class="new-project__input"
              autofocus
              placeholder="Enter project title..."
-             v-on-clickaway="addProject">
+             v-on-clickaway="addProject"
+             :class="{ 'error': $v.newProject.$error }">
     </div>
 
   </div>
@@ -26,6 +27,8 @@ import Project from './Project.vue'
 import {router} from '../main'
 import {auth} from '../main'
 import { mixin as clickaway } from 'vue-clickaway';
+import { required } from 'vuelidate/lib/validators'
+import {API_URL} from '../main'
 
 
 export default {
@@ -41,6 +44,11 @@ export default {
       showButton: true
     }
   },
+  validations: {
+    newProject: {
+      required
+    },
+  },
   methods: {
     showProjectTitle() {
       this.showButton = false
@@ -49,24 +57,28 @@ export default {
 
       let removedId = this.projects.splice(id, 1)[0].id;
 
-      this.$http.delete('http://192.168.100.100:3000/projects/'+removedId).then((response) => {
+      this.$http.delete(API_URL+'projects/'+removedId).then((response) => {
       }, (response) => {
         console.log('err');
       });
     },
     addProject() {
-      let options = {
-        name: this.newProject,
-        user_id: auth.user.user_id
-      };
+      this.$v.newProject.$touch();
+      if(!this.$v.newProject.$error) {
+        let options = {
+          name: this.newProject,
+          user_id: auth.user.user_id
+        };
 
-      this.$http.post('http://192.168.100.100:3000/projects', options).then((response) => {
-        this.projects.push(response.body);
-        this.showButton = true;
-      }, (response) => {
-        console.log('err');
+        this.$http.post(API_URL+'projects', options).then((response) => {
+          this.projects.push(response.body);
+          this.showButton = true;
+        }, (response) => {
+          console.log('err');
 
-      });
+        });
+        this.newProject = '';
+      }
     }
   },
   created() {
@@ -74,7 +86,7 @@ export default {
       router.replace('/login')
   },
   mounted: function() {
-    this.$http.get('http://192.168.100.100:3000/projects').then((response) => {
+    this.$http.get(API_URL+'projects').then((response) => {
       this.projects = (response.body);
     }, (response) => {
       console.log('err');
