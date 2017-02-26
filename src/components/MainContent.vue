@@ -57,7 +57,7 @@ export default {
 
       let removedId = this.projects.splice(id, 1)[0].id;
 
-      this.$http.delete(API_URL+'projects/'+removedId).then((response) => {
+      this.$https.delete(API_URL+'projects/'+removedId).then((response) => {
       }, (response) => {
         console.log('err');
       });
@@ -70,7 +70,7 @@ export default {
           user_id: auth.user.user_id
         };
 
-        this.$http.post(API_URL+'projects', options).then((response) => {
+        this.$https.post(API_URL+'projects', options).then((response) => {
           this.projects.push(response.body);
           this.showButton = true;
         }, (response) => {
@@ -86,7 +86,7 @@ export default {
       router.replace('/login')
   },
   mounted: function() {
-    this.$http.get(API_URL+'projects').then((response) => {
+    this.$https.get(API_URL+'projects').then((response) => {
       this.projects = (response.body);
     }, (response) => {
       console.log('err');
