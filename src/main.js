@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 Vue.use(Vuelidate);
 
 
-export const API_URL = 'http://calm-dawn-45264.herokuapp.com/';
+export const API_URL = 'https://calm-dawn-45264.herokuapp.com/';
 const LOGIN_URL = API_URL + 'user_token';
 const SIGNUP_URL = API_URL + 'users';
 
