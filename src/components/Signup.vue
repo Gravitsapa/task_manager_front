@@ -1,10 +1,13 @@
 <template>
 	<div class="form">
     <form @submit.prevent="signup">
-      <input type="text" v-model="name" placeholder="name">
-      <input type="text" v-model="email" placeholder="email">
-      <input type="password" v-model="password" placeholder="password">
-      <input type="password" v-model="passwordConfirmation" placeholder="password confirmation">
+      <input type="text" v-model="user.name" placeholder="name" :class="{ 'error': $v.user.name.$error }">
+      <input type="text" v-model="user.email" placeholder="email" :class="{ 'error': $v.user.email.$error }">
+      <input type="password" v-model="user.password" placeholder="password" :class="{ 'error': $v.user.password.$error }">
+      <input type="password"
+             v-model="user.passwordConfirmation"
+             placeholder="password confirmation"
+             :class="{ 'error': $v.user.passwordConfirmation.$error }">
       <button type="submit">Register</button>
     </form>
   </div>
@@ -12,69 +15,53 @@
 
 <script>
   import {auth} from '../main'
+  import { required, email, sameAs, minLength } from 'vuelidate/lib/validators'
+
 
   export default {
     data() {
       return {
-        name: '',
-        email: '',
-        password: '',
-        passwordConfirmation: '',
+        user: {
+          name: '',
+          email: '',
+          password: '',
+          passwordConfirmation: '',
+        }
+      }
+    },
+    validations: {
+      user: {
+        name: {
+          required
+        },
+        email: {
+          required,
+          email,
+        },
+        password: {
+          required,
+          minLength: minLength(5)
+        },
+        passwordConfirmation: {
+          required,
+          minLength: minLength(5),
+          sameAsPassword: sameAs('password')
+        },
       }
     },
     methods: {
       signup() {
-        let credentials = {
-          name: this.name,
-          email: this.email,
-          password: this.password,
-          password_confirmation: this.passwordConfirmation,
-        };
-        auth.signup(this, credentials, '/')
+        this.$v.user.$touch();
+        if(!this.$v.user.$error) {
+          let credentials = {
+            name: this.user.name,
+            email: this.user.email,
+            password: this.user.password,
+            password_confirmation: this.user.passwordConfirmation,
+          };
+          auth.signup(this, credentials, '/')
+        }
       }
     }
   }
 </script>
-
-<style>
-  .form {
-    position: relative;
-    z-index: 1;
-    background: #FFFFFF;
-    max-width: 360px;
-    margin: 0 auto 100px;
-    padding: 45px;
-    text-align: center;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-  }
-
-  .form input {
-    outline: 0;
-    background: #f2f2f2;
-    width: 100%;
-    border: 0;
-    margin: 0 0 15px;
-    padding: 15px;
-    box-sizing: border-box;
-    font-size: 14px;
-  }
-
-  .form button {
-    text-transform: uppercase;
-    outline: 0;
-    background: rgb(232, 189, 63);
-    width: 100%;
-    border: 0;
-    padding: 15px;
-    color: #FFFFFF;
-    font-size: 14px;
-    -webkit-transition: all 0.3 ease;
-    transition: all 0.3 ease;
-    cursor: pointer;
-  }
-
-  .form button:hover {
-    background: rgb(210, 166, 38);
-  }
-
-</style>

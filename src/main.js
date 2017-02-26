@@ -1,6 +1,7 @@
 import Vue          from 'vue'
 import VueRouter    from 'vue-router'
 import VueResource  from 'vue-resource'
+import Vuelidate    from 'vuelidate'
 
 import App          from './components/App.vue'
 import MainContent  from './components/MainContent.vue'
@@ -9,6 +10,8 @@ import Signup       from './components/Signup.vue'
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
+Vue.use(Vuelidate);
+
 
 const API_URL = 'http://192.168.100.100:3000/';
 const LOGIN_URL = API_URL + 'user_token';

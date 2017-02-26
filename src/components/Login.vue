@@ -1,9 +1,15 @@
 <template>
 	<div class="form">
-    <form @submit="login">
-      <input type="email" v-model="user.email" placeholder="email">
-      <input type="password" v-model="user.password" @keyup.enter="login" placeholder="password">
-      <button type="button" @click="login">Sign in</button>
+    <form @submit.prevent="login">
+      <input type="email"
+             v-model="user.email"
+             placeholder="email"
+             :class="{ 'error': $v.user.email.$error }">
+      <input type="password"
+             v-model="user.password"
+             placeholder="password"
+             :class="{ 'error': $v.user.password.$error }">
+      <button type="submit" @click="login">Sign in</button>
     </form>
     <p class="message">Not registered? <router-link to="signup">Create an account</router-link></p>
 	</div>
@@ -11,6 +17,7 @@
 
 <script>
   import {auth} from '../main'
+  import { required, email } from 'vuelidate/lib/validators'
 
   export default {
     data() {
@@ -21,15 +28,30 @@
         }
       }
     },
+    validations: {
+      user: {
+        email: {
+          required,
+          email,
+        },
+        password: {
+          required,
+        }
+      }
+
+    },
     methods: {
       login() {
-        let user = {
+        this.$v.user.$touch();
+        if(!this.$v.user.$error) {
+          let user = {
           auth: {
             email: this.user.email,
             password: this.user.password
           }
-        };
-        auth.login(this, user)
+          };
+          auth.login(this, user)
+        }
       }
     }
   }
@@ -51,11 +73,12 @@
     outline: 0;
     background: #f2f2f2;
     width: 100%;
-    border: 0;
+    border: 1px solid #f2f2f2;
     margin: 0 0 15px;
     padding: 15px;
     box-sizing: border-box;
     font-size: 14px;
+    transition: border .5s ease;
   }
 
   .form button {
@@ -76,6 +99,9 @@
     background: rgb(210, 166, 38);
   }
 
+  .form * {
+    box-sizing: border-box;
+  }
   .form .message {
     margin: 15px 0 0;
     color: #b3b3b3;
@@ -85,5 +111,30 @@
   .form .message a {
     color: #4CAF50;
     text-decoration: none;
+  }
+
+  .form input.error {
+    border: 1px solid red;
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+  }
+
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+      transform: translate3d(1px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+      transform: translate3d(-2px, 0, 0);
+    }
+
+    40%, 60% {
+      transform: translate3d(2px, 0, 0);
+    }
   }
 </style>

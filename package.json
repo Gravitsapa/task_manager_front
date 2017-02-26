@@ -17,7 +17,8 @@
     "vue-resource": "*",
     "vue-router": "*",
     "vuedraggable": "^2.8.3-rc0",
-    "vuejs-datepicker": "^0.6.2"
+    "vuejs-datepicker": "^0.6.2",
+    "vuelidate": "^0.2.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
