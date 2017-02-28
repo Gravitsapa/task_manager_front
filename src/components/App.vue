@@ -40,6 +40,18 @@ export default {
     margin: 0 auto;
   }
 
+  @media (max-width: 992px) {
+    .container {
+      width: 80%;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .container {
+      width: 95%;
+    }
+  }
+
   #app {
     display: flex;
     min-height: 100vh;

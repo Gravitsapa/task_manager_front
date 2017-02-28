@@ -23,7 +23,7 @@
         <a href="#" class="actions-item handle actions__move-task" @click.prevent></a>
         <a href="#" class="actions-item actions__delete-task" @click.prevent="$emit('removeTask', this.task)"></a>
         <a href="#" class="actions-item actions__edit-task" @click.prevent='editMode = true'></a>
-        <label class="actions-item deadlineLabel actions__edit-task" :for="'task_'+taskId"></label>
+        <label class="actions-item deadlineLabel actions__deadline-task" :for="'task_'+taskId"></label>
 
         <datepicker :id="'task_'+taskId"
                     input-class="hidden"
@@ -129,6 +129,9 @@
     padding: 0 0 0 15px;
     display: table-cell;
     line-height: 50px;
+  }
+
+  .task:last-child .task__checkbox {
     border-bottom-left-radius: 12px;
   }
 
@@ -169,6 +172,9 @@
     width: 112px;
     padding-left: 5px;
     vertical-align: middle;
+  }
+
+  .task:last-child .task__actions {
     border-bottom-right-radius: 12px;
   }
 
@@ -194,6 +200,11 @@
 
   .actions__edit-task {
     background: url("../assets/pencil-small_ico.png") no-repeat 100%;
+  }
+
+  .actions__deadline-task {
+    background: url("../assets/clock-small_ico.png") no-repeat 100%;
+    cursor: pointer;
   }
 
   .actions__delete-task {

@@ -2,7 +2,7 @@
 	<header class="header">
     <div class="header__loader"></div>
 		<nav class="container">
-	    <ul>
+	    <ul class="menu">
         <template v-if="!user.authenticated">
           <li><router-link to="login">Log in</router-link></li>
           <li><router-link to="signup">Register</router-link></li>
@@ -64,5 +64,15 @@
   .header__logo_small {
     font-size: 18px;
     margin: 5px 0;
+  }
+
+  .menu li {
+    margin-left: 20px;
+  }
+
+  .menu li a {
+    color: #4972AF;
+    font-weight: bold;
+    text-decoration: none;
   }
 </style>
